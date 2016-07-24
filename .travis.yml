@@ -1,0 +1,11 @@
+sudo: required
+dist: trusty
+language: c++
+matrix:
+  include:
+    - compiler: gcc
+      before_install: pip install --user cpp-coveralls
+      after_success: coveralls --include src
+    - compiler: clang
+script:
+  - test/test
