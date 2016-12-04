@@ -25,12 +25,12 @@ namespace speedofsound {
   class SpeedOfSound {
     public:
       SpeedOfSound();
-      SpeedOfSound(Environment ambient_conitions);
+      SpeedOfSound(Environment &ambient_conitions);
       Environment GetInitEnvironment() const;
       EnvironmentRate GetInitEnvironmentRate() const;
-      double Compute(Environment ambient_conitions);
-      double QuickCompute(Environment ambient_conitions) const;
-      double Approximate(Environment ambient_conitions) const;
+      double Compute(Environment &ambient_conitions);
+      double QuickCompute(Environment &ambient_conitions) const;
+      double Approximate(Environment &ambient_conitions) const;
 
     private:
       double init_speed_of_sound_;

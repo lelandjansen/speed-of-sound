@@ -50,7 +50,7 @@ namespace speedofsound {
   }
 
 
-  SpeedOfSound::SpeedOfSound(Environment ambient_conitions) {
+  SpeedOfSound::SpeedOfSound(Environment &ambient_conitions) {
     init_environment.temperature_ = ambient_conitions.temperature_;
     init_environment.humidity_ = ambient_conitions.humidity_;
     init_environment.pressure_ = ambient_conitions.pressure_;
@@ -67,7 +67,7 @@ namespace speedofsound {
     return init_environment_rate;
   }
 
-  double SpeedOfSound::Compute(Environment ambient_conitions) {
+  double SpeedOfSound::Compute(Environment &ambient_conitions) {
     double t, h, p, xc, T, F, Psv, Xw, C, dF_dt, dF_dp, dPsv_dt, dXw_dF, dC_dXw,
       dXw_dPsv, dXw_dp, dXw_dh, dC_dt, dC_dxc, dC_dp, dC_dh;
 
@@ -110,7 +110,7 @@ namespace speedofsound {
   }
 
 
-  double SpeedOfSound::QuickCompute(Environment ambient_conitions) const {
+  double SpeedOfSound::QuickCompute(Environment &ambient_conitions) const {
     double t, h, p, xc, T, F, Psv, Xw;
 
     t  = ambient_conitions.temperature_;
@@ -127,7 +127,7 @@ namespace speedofsound {
   }
 
 
-  double SpeedOfSound::Approximate(Environment ambient_conitions) const {
+  double SpeedOfSound::Approximate(Environment &ambient_conitions) const {
     double approx_speed_of_sound, speed_of_sound_change;
     approx_speed_of_sound = init_speed_of_sound_;
 
