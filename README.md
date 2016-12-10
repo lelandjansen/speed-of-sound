@@ -18,7 +18,7 @@
 
 ## Quick facts
 - Computes the speed of sound in air based on temperature, relative humidity, pressure, and carbon dioxide mole fraction.
-- Runtime of subsequent speed of sound computations reduced by 67.7% through the use of calculus linear approximations. ([reference](https://github.com/lelandjansen/speed-of-sound/blob/master/test/speed_of_sound_test.cc#L312)).
+- Runtime of subsequent speed of sound computations reduced by 67.7% through the use of calculus linear approximations ([reference](https://github.com/lelandjansen/speed-of-sound/blob/master/test/speed_of_sound_test.cc#L312)).
 - Approximation maintains precision of at least 0.05% with environmental factors varying up to 20% ([reference](https://github.com/lelandjansen/speed-of-sound/blob/master/test/speed_of_sound_test.cc#L275)).
 
 
