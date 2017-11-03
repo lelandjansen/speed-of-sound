@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 
 project(speed-of-sound)
 
@@ -22,7 +22,7 @@ add_library(
   src/speed_of_sound_theory.cc
 )
 
-set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
+set(GOOGLETEST_ROOT external/googletest/googletest)
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
