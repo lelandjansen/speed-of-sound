@@ -1,0 +1,48 @@
+version: 2
+jobs:
+  build-release:
+    docker:
+      - image: lelandjansen/speed-of-sound-toolchain:0.0.2
+    steps:
+      - checkout
+      - run: 
+          name: Git submodules
+          command: git submodule update --init --recursive
+      - run:
+          name: Build (release)
+          command: |
+            cmake \
+              -DCMAKE_BUILD_TYPE=RELEASE \
+              .
+            cmake --build . -- -j2
+  build-debug-and-test:
+    docker:
+      - image: lelandjansen/speed-of-sound-toolchain:0.0.2
+    environment:
+      COVERALLS_REPO_TOKEN: Ny1fDedTzf5EuoygukebX5x28beAqhHD9
+    steps:
+      - checkout
+      - run: 
+          name: Git submodules
+          command: git submodule update --init --recursive
+      - run: 
+          name: Build (debug)
+          command: |
+            cmake \
+              -DCMAKE_BUILD_TYPE=DEBUG \
+              .
+            cmake --build . -- -j2
+      - run:
+          name: Run unit tests
+          command: ./unit_tests
+      - run:
+          name: Coveralls
+          when: on_success
+          command: coveralls --include src
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build-release
+      - build-debug-and-test
+ 

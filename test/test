@@ -3,5 +3,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BUILD_DIR="$DIR/../build"
 mkdir -p "$BUILD_DIR/build"
 cmake -B$BUILD_DIR -H$DIR/..
-make -j -C $BUILD_DIR
+make -j2 -C $BUILD_DIR
 $BUILD_DIR/unit_tests
+

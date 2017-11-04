@@ -1,7 +1,6 @@
 # Speed of Sound
-[![Build Status](https://travis-ci.org/lelandjansen/speed-of-sound.svg)](https://travis-ci.org/lelandjansen/speed-of-sound)
+[![CircleCI](https://circleci.com/gh/lelandjansen/speed-of-sound.svg?style=svg)](https://circleci.com/gh/lelandjansen/speed-of-sound)
 [![Coverage Status](https://coveralls.io/repos/github/lelandjansen/speed-of-sound/badge.svg)](https://coveralls.io/github/lelandjansen/speed-of-sound)
-[![Analytics](https://ga-beacon.appspot.com/UA-46915227-3/speed-of-sound?flat)](https://github.com/igrigorik/ga-beacon)
 
 **Speed of Sound** is a library to efficiently compute the speed of sound in air. It is intended for use in embedded systems that require a high-precision computation of the speed of sound in air based a variety of ambient conditions.
 
