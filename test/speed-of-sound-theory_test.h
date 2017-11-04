@@ -1,10 +1,12 @@
-// speed_of_sound_theory_test.h
-#include <tuple>
-#include <vector>
-#include "test.h"
-
 #ifndef TEST_SPEED_OF_SOUND_THEORY_TEST_H_
 #define TEST_SPEED_OF_SOUND_THEORY_TEST_H_
+
+#include <tuple>
+#include <vector>
+
+#include "gtest/gtest.h"
+
+#include "speed-of-sound.h"
 
 class SpeedOfSoundTheoryTest : public ::testing::Test {
  public:

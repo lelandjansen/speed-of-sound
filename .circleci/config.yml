@@ -1,5 +1,13 @@
 version: 2
 jobs:
+  check-code-style:
+    docker:
+      - image: lelandjansen/speed-of-sound-toolchain:0.0.2
+    steps:
+      - checkout
+      - run:
+          name: Check code style
+          command: ./check-code-style
   build-release:
     docker:
       - image: lelandjansen/speed-of-sound-toolchain:0.0.2
@@ -43,6 +51,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
+      - check-code-style
       - build-release
       - build-debug-and-test
  
