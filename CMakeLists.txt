@@ -8,8 +8,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_program(clang_tidy_executable NAMES
+  clang-tidy
+  clang-tidy-5.0)
 set(clang_tidy_line_filters "[{'name': 'external/*'}]")
-set(base_clang_tidy "clang-tidy-5.0;-line-filter=${clang_tidy_line_filters}")
+set(base_clang_tidy "${clang_tidy_executable};-line-filter=${clang_tidy_line_filters}")
 if(CMAKE_BUILD_TYPE MATCHES DEBUG)
   message("DEBUG mode")
   set(build_type_flags "-g -Og --coverage -fno-exceptions")
