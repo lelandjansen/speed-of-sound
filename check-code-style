@@ -10,6 +10,6 @@ if output.strip().lower() not in [b'no modified files to format',
     print(output.strip().decode('utf-8'))
     exit(1)
 else:
-    exit(0)
     print(output.strip().decode('utf-8'))
+    exit(0)
 
