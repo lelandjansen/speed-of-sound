@@ -41,20 +41,20 @@ The speed of sound computation takes on the following parameters and is only val
 
 Create `Environment` object to hold ambient conditions (initializes values to default).
 ```C++
-speedofsound::Environment ambient_conitions;
+speedofsound::Environment ambient_conditions;
 ```
 
 Access `Environment` object members.
 ```C++
-ambient_conitions.temperature_;
-ambient_conitions.humidity_;
-ambient_conitions.pressure_;
-ambient_conitions.co2_mole_fraction_;
+ambient_conditions.temperature_;
+ambient_conditions.humidity_;
+ambient_conditions.pressure_;
+ambient_conditions.co2_mole_fraction_;
 ```
 
 Adjust environment variables.
 ```C++
-ambient_conitions.temperature_ = 25.0;
+ambient_conditions.temperature_ = 25.0;
 ...
 ```
 
@@ -63,18 +63,18 @@ Check if environmental parameters are within specified constraints (see Constrai
 bool is_valid;
 
 // Validate individual parameters
-is_valid = ambient_conitions.ValidateTemperature();
-is_valid = ambient_conitions.ValidateHumidity();
-is_valid = ambient_conitions.ValidatePressure();
-is_valid = ambient_conitions.ValidateCO2MoleFraction();
+is_valid = ambient_conditions.ValidateTemperature();
+is_valid = ambient_conditions.ValidateHumidity();
+is_valid = ambient_conditions.ValidatePressure();
+is_valid = ambient_conditions.ValidateCO2MoleFraction();
 
 // Validate all parameters
-is_valid = ambient_conitions.ValidateEnvironment();
+is_valid = ambient_conditions.ValidateEnvironment();
 ```
 
 Create `SpeedOfSound` object and set initial conditions.
 ```C++
-speedofsound::SpeedOfSound speed_of_sound(ambient_conitions);
+speedofsound::SpeedOfSound speed_of_sound(ambient_conditions);
 
 speedofsound::SpeedOfSound speed_of_sound(); // Default Environment values
 ```
@@ -84,13 +84,13 @@ Compute speed of sound.
 double sound_speed;
 
 // Full computation, reset initial conditions
-sound_speed = speed_of_sound.Compute(ambient_conitions);
+sound_speed = speed_of_sound.Compute(ambient_conditions);
 
 // Full computation, do not reset initial conditions
-sound_speed = speed_of_sound.QuickCompute(ambient_conitions);
+sound_speed = speed_of_sound.QuickCompute(ambient_conditions);
 
 // Linear approximation, do not reset initial conditions
-sound_speed = speed_of_sound.Approximate(ambient_conitions);
+sound_speed = speed_of_sound.Approximate(ambient_conditions);
 ```
 
 
@@ -101,19 +101,19 @@ sound_speed = speed_of_sound.Approximate(ambient_conitions);
 #include "some_sensor.h"
 
 int main() {
-  speedofsound::Environment ambient_conitions;
-  ambient_conitions.temperature_ = sensor::MeasureTemperature();
+  speedofsound::Environment ambient_conditions;
+  ambient_conditions.temperature_ = sensor::MeasureTemperature();
 
   // Initial "full" computation
-  speedofsound::SpeedOfSound speed_of_sound(ambient_conitions);
+  speedofsound::SpeedOfSound speed_of_sound(ambient_conditions);
 
   double sound_speed;
   const double distance = 100.0; // meters
   while (true) {
-    ambient_conitions.temperature_ = sensor::MeasureTemperature();
-    if (!ambient_conitions.ValidateTemperature()) break;
+    ambient_conditions.temperature_ = sensor::MeasureTemperature();
+    if (!ambient_conditions.ValidateTemperature()) break;
 
-    sound_speed = speed_of_sound.Approximate(ambient_conitions);
+    sound_speed = speed_of_sound.Approximate(ambient_conditions);
 
     std::cout << "It would take a sound wave approximately " << \
                  distance/sound_speed << " seconds to travel " << \
