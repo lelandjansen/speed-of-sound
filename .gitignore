@@ -1,5 +1,5 @@
-build*/
+*.idea
 *.swp
 *.swo
+build*/
 .DS_Store
-
