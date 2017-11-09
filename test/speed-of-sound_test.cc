@@ -228,7 +228,6 @@ TEST_F(SpeedOfSoundTest, ApproximationReturnsCorrectValue) {
   environment_higher.co2_mole_fraction_ += 0.003;
   EXPECT_DOUBLE_EQ(347.0974896038062,
                    speed_of_sound_.Approximate(environment_higher));
-
   environment_lower.temperature_ -= 12.0;
   environment_lower.humidity_ -= 0.3;
   environment_lower.pressure_ -= 2000;
@@ -253,7 +252,6 @@ TEST_F(SpeedOfSoundTest, LinearApproximationResultWithinTolerance) {
           e_init.pressure_ = p;
           e_init.co2_mole_fraction_ = xc;
           auto c = speed_of_sound_.Compute(e_init);
-
           e.temperature_ = (1.0 - environment_variance) * t;
           e.humidity_ = (1.0 - environment_variance) * h;
           e.pressure_ = (1.0 - environment_variance) * p;
@@ -261,7 +259,6 @@ TEST_F(SpeedOfSoundTest, LinearApproximationResultWithinTolerance) {
           c = speed_of_sound_.QuickCompute(e);
           auto c_approx = speed_of_sound_.Approximate(e);
           ASSERT_NEAR(c, c_approx, c * tolerance);
-
           e.temperature_ = (1.0 + environment_variance) * t;
           e.humidity_ = (1.0 + environment_variance) * h;
           e.pressure_ = (1.0 + environment_variance) * p;

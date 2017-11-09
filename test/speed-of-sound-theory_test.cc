@@ -29,10 +29,9 @@ TEST_F(SpeedOfSoundTheoryTest, T) {
                 {291.4341486382416, random_case},
                 {293.15, std_case},
                 {303.15, max_case}};
-  double t, T;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    T = speedofsound::theory::T(t);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto T = speedofsound::theory::T(t);
     EXPECT_DOUBLE_EQ(test_case.first, T);
   }
 }
@@ -49,11 +48,10 @@ TEST_F(SpeedOfSoundTheoryTest, F) {
                 {1.0038693857578078, random_case},
                 {1.004025605, std_case},
                 {1.0045780000000002, max_xw_case}};
-  double p, t, F;
-  for (auto test_case : test_cases) {
-    p = test_case.second.pressure_;
-    t = test_case.second.temperature_;
-    F = speedofsound::theory::F(p, t);
+  for (const auto& test_case : test_cases) {
+    const auto p = test_case.second.pressure_;
+    const auto t = test_case.second.temperature_;
+    const auto F = speedofsound::theory::F(p, t);
     EXPECT_DOUBLE_EQ(test_case.first, F);
   }
 }
@@ -69,10 +67,9 @@ TEST_F(SpeedOfSoundTheoryTest, dF_dt) {
                 {0.00001376954484983158, random_case},
                 {0.000022399999999999996, std_case},
                 {0.0000336, max_xw_case}};
-  double t, dF_dt;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    dF_dt = speedofsound::theory::dF_dt(t);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto dF_dt = speedofsound::theory::dF_dt(t);
     EXPECT_DOUBLE_EQ(test_case.first, dF_dt);
   }
 }
@@ -84,10 +81,9 @@ TEST_F(SpeedOfSoundTheoryTest, Psv) {
                 {716.0310817057355, random_case},
                 {2338.5721154062803, std_case},
                 {4245.190531747869, max_xw_case}};
-  double T, Psv;
-  for (auto test_case : test_cases) {
-    T = speedofsound::theory::T(test_case.second.temperature_);
-    Psv = speedofsound::theory::Psv(T);
+  for (const auto& test_case : test_cases) {
+    const auto T = speedofsound::theory::T(test_case.second.temperature_);
+    const auto Psv = speedofsound::theory::Psv(T);
     EXPECT_NEAR(test_case.first, Psv, test_case.first * kTolerance);
   }
 }
@@ -99,10 +95,9 @@ TEST_F(SpeedOfSoundTheoryTest, dPsv_dt) {
                 {73.4960648857937, random_case},
                 {144.84027310567882, std_case},
                 {243.64989811537197, max_xw_case}};
-  double T, dPsv_dt;
-  for (auto test_case : test_cases) {
-    T = speedofsound::theory::T(test_case.second.temperature_);
-    dPsv_dt = speedofsound::theory::dPsv_dt(T);
+  for (const auto& test_case : test_cases) {
+    const auto T = speedofsound::theory::T(test_case.second.temperature_);
+    const auto dPsv_dt = speedofsound::theory::dPsv_dt(T);
     EXPECT_NEAR(test_case.first, dPsv_dt, test_case.first * kTolerance);
   }
 }
@@ -116,14 +111,13 @@ TEST_F(SpeedOfSoundTheoryTest, Xw) {
                 {0.007086640331164677, random_case},
                 {0.011586411463147895, std_case},
                 {0.03876931830911101, max_xw_case}};
-  double t, h, p, F, Psv, Xw;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    h = test_case.second.humidity_;
-    p = test_case.second.pressure_;
-    F = speedofsound::theory::F(p, t);
-    Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
-    Xw = speedofsound::theory::Xw(h, F, Psv, p);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto h = test_case.second.humidity_;
+    const auto p = test_case.second.pressure_;
+    const auto F = speedofsound::theory::F(p, t);
+    const auto Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
+    const auto Xw = speedofsound::theory::Xw(h, F, Psv, p);
     EXPECT_NEAR(test_case.first, Xw, test_case.first * kTolerance);
   }
 }
@@ -136,13 +130,12 @@ TEST_F(SpeedOfSoundTheoryTest, dXw_dh) {
                 {0.03264236679363074, random_case},
                 {0.02317282292629579, std_case},
                 {0.03876931830911101, max_xw_case}};
-  double t, p, F, Psv, dXw_dh;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    p = test_case.second.pressure_;
-    F = speedofsound::theory::F(p, t);
-    Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
-    dXw_dh = speedofsound::theory::dXw_dh(F, Psv, p);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto p = test_case.second.pressure_;
+    const auto F = speedofsound::theory::F(p, t);
+    const auto Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
+    const auto dXw_dh = speedofsound::theory::dXw_dh(F, Psv, p);
     EXPECT_NEAR(test_case.first, dXw_dh, test_case.first * kTolerance);
   }
 }
@@ -156,13 +149,13 @@ TEST_F(SpeedOfSoundTheoryTest, dXw_dF) {
                 {0.002571419561273468, random_case},
                 {0.011539956157938715, std_case},
                 {0.038592641197707896, max_xw_case}};
-  double t, h, p, Psv, dXw_dF;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    h = test_case.second.humidity_;
-    p = test_case.second.pressure_;
-    Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
-    dXw_dF = speedofsound::theory::dXw_dF(h, Psv, p);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto h = test_case.second.humidity_;
+    const auto p = test_case.second.pressure_;
+    const auto Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
+    const auto dXw_dF = speedofsound::theory::dXw_dF(h, Psv, p);
+    EXPECT_NEAR(test_case.first, dXw_dF, test_case.first * kTolerance);
   }
 }
 
@@ -175,13 +168,12 @@ TEST_F(SpeedOfSoundTheoryTest, dXw_dPsv) {
                 {0.000013688345639018303, random_case},
                 {4.954481149765606e-6, std_case},
                 {9.132527272727275e-6, max_xw_case}};
-  double t, h, p, F, dXw_dPsv;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    h = test_case.second.humidity_;
-    p = test_case.second.pressure_;
-    F = speedofsound::theory::F(p, t);
-    dXw_dPsv = speedofsound::theory::dXw_dPsv(h, F, p);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto h = test_case.second.humidity_;
+    const auto p = test_case.second.pressure_;
+    const auto F = speedofsound::theory::F(p, t);
+    const auto dXw_dPsv = speedofsound::theory::dXw_dPsv(h, F, p);
     EXPECT_NEAR(test_case.first, dXw_dPsv, test_case.first * kTolerance);
   }
 }
@@ -195,20 +187,20 @@ TEST_F(SpeedOfSoundTheoryTest, dXw_dp) {
                 {-3.451789197083466e-8, random_case},
                 {-1.1398663588389851e-7, std_case},
                 {-3.512365393310375e-7, max_xw_case}};
-  double t, h, p, F, Psv, dXw_dp;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    h = test_case.second.humidity_;
-    p = test_case.second.pressure_;
-    F = speedofsound::theory::F(p, t);
-    Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
-    dXw_dp = speedofsound::theory::dXw_dp(h, F, Psv, p);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto h = test_case.second.humidity_;
+    const auto p = test_case.second.pressure_;
+    const auto F = speedofsound::theory::F(p, t);
+    const auto Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
+    const auto dXw_dp = speedofsound::theory::dXw_dp(h, F, Psv, p);
     EXPECT_NEAR(test_case.first, dXw_dp, -1.0 * test_case.first * kTolerance);
   }
 }
 
 TEST_F(SpeedOfSoundTheoryTest, C) {
-  speedofsound::Environment random_case_1, random_case_2;
+  speedofsound::Environment random_case_1;
+  speedofsound::Environment random_case_2;
   random_case_1.temperature_ = 4.788305455529283;
   random_case_1.humidity_ = 0.8483903127928138;
   random_case_1.pressure_ = 99341.02580103357;
@@ -222,16 +214,15 @@ TEST_F(SpeedOfSoundTheoryTest, C) {
                 {337.9787163164935, random_case_2},
                 {343.9943970603679, std_case},
                 {350.593524548772, max_case}};
-  double t, h, p, xc, F, Psv, Xw, C;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    h = test_case.second.humidity_;
-    p = test_case.second.pressure_;
-    xc = test_case.second.co2_mole_fraction_;
-    F = speedofsound::theory::F(p, t);
-    Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
-    Xw = speedofsound::theory::Xw(h, F, Psv, p);
-    C = speedofsound::theory::C(t, p, Xw, xc);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto h = test_case.second.humidity_;
+    const auto p = test_case.second.pressure_;
+    const auto xc = test_case.second.co2_mole_fraction_;
+    const auto F = speedofsound::theory::F(p, t);
+    const auto Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
+    const auto Xw = speedofsound::theory::Xw(h, F, Psv, p);
+    const auto C = speedofsound::theory::C(t, p, Xw, xc);
     EXPECT_NEAR(test_case.first, C, test_case.first * kTolerance);
   }
 }
@@ -246,21 +237,21 @@ TEST_F(SpeedOfSoundTheoryTest, dC_dt) {
                 {0.5990025466394929, random_case},
                 {0.6246637009346002, std_case},
                 {0.7086882617549803, max_case}};
-  double t, h, p, xc, F, Psv, Xw, dXw_dF, dF_dt, dXw_dPsv, dPsv_dt, dC_dt;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    h = test_case.second.humidity_;
-    p = test_case.second.pressure_;
-    xc = test_case.second.co2_mole_fraction_;
-    F = speedofsound::theory::F(p, t);
-    Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
-    Xw = speedofsound::theory::Xw(h, F, Psv, p);
-    dXw_dF = speedofsound::theory::dXw_dF(h, Psv, p);
-    dF_dt = speedofsound::theory::dF_dt(t);
-    dXw_dPsv = speedofsound::theory::dXw_dPsv(h, F, p);
-    dPsv_dt = speedofsound::theory::dPsv_dt(speedofsound::theory::T(t));
-    dC_dt = speedofsound::theory::dC_dt(t, p, Xw, xc, dXw_dF, dF_dt, dXw_dPsv,
-                                        dPsv_dt);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto h = test_case.second.humidity_;
+    const auto p = test_case.second.pressure_;
+    const auto xc = test_case.second.co2_mole_fraction_;
+    const auto F = speedofsound::theory::F(p, t);
+    const auto Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
+    const auto Xw = speedofsound::theory::Xw(h, F, Psv, p);
+    const auto dXw_dF = speedofsound::theory::dXw_dF(h, Psv, p);
+    const auto dF_dt = speedofsound::theory::dF_dt(t);
+    const auto dXw_dPsv = speedofsound::theory::dXw_dPsv(h, F, p);
+    const auto dPsv_dt =
+        speedofsound::theory::dPsv_dt(speedofsound::theory::T(t));
+    const auto dC_dt = speedofsound::theory::dC_dt(t, p, Xw, xc, dXw_dF, dF_dt,
+                                                   dXw_dPsv, dPsv_dt);
     EXPECT_NEAR(test_case.first, dC_dt, test_case.first * kTolerance);
   }
 }
@@ -275,16 +266,15 @@ TEST_F(SpeedOfSoundTheoryTest, dC_dXw) {
                 {54.83927112325779, random_case},
                 {54.10064719455334, std_case},
                 {55.514460843843075, max_case}};
-  double t, h, p, xc, F, Psv, Xw, dC_dXw;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    h = test_case.second.humidity_;
-    p = test_case.second.pressure_;
-    xc = test_case.second.co2_mole_fraction_;
-    F = speedofsound::theory::F(p, t);
-    Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
-    Xw = speedofsound::theory::Xw(h, F, Psv, p);
-    dC_dXw = speedofsound::theory::dC_dXw(t, p, Xw, xc);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto h = test_case.second.humidity_;
+    const auto p = test_case.second.pressure_;
+    const auto xc = test_case.second.co2_mole_fraction_;
+    const auto F = speedofsound::theory::F(p, t);
+    const auto Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
+    const auto Xw = speedofsound::theory::Xw(h, F, Psv, p);
+    const auto dC_dXw = speedofsound::theory::dC_dXw(t, p, Xw, xc);
     EXPECT_NEAR(test_case.first, dC_dXw, test_case.first * kTolerance);
   }
 }
@@ -299,16 +289,15 @@ TEST_F(SpeedOfSoundTheoryTest, dC_dxc) {
                 {-89.45230237346945, random_case},
                 {-89.16728444269332, std_case},
                 {-89.35618526963965, max_case}};
-  double t, h, p, xc, F, Psv, Xw, dC_dxc;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    h = test_case.second.humidity_;
-    p = test_case.second.pressure_;
-    xc = test_case.second.co2_mole_fraction_;
-    F = speedofsound::theory::F(p, t);
-    Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
-    Xw = speedofsound::theory::Xw(h, F, Psv, p);
-    dC_dxc = speedofsound::theory::dC_dxc(t, p, Xw, xc);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto h = test_case.second.humidity_;
+    const auto p = test_case.second.pressure_;
+    const auto xc = test_case.second.co2_mole_fraction_;
+    const auto F = speedofsound::theory::F(p, t);
+    const auto Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
+    const auto Xw = speedofsound::theory::Xw(h, F, Psv, p);
+    const auto dC_dxc = speedofsound::theory::dC_dxc(t, p, Xw, xc);
     EXPECT_NEAR(test_case.first, dC_dxc, -1.0 * test_case.first * kTolerance);
   }
 }
@@ -323,17 +312,16 @@ TEST_F(SpeedOfSoundTheoryTest, dC_dp) {
                 {-0.00002145591319831367, random_case},
                 {-5.761752390113884e-6, std_case},
                 {-0.00002184468771493967, max_case}};
-  double t, h, p, xc, F, Psv, Xw, dXw_dp, dC_dp;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    h = test_case.second.humidity_;
-    p = test_case.second.pressure_;
-    xc = test_case.second.co2_mole_fraction_;
-    F = speedofsound::theory::F(p, t);
-    Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
-    Xw = speedofsound::theory::Xw(h, F, Psv, p);
-    dXw_dp = speedofsound::theory::dXw_dp(h, F, Psv, p);
-    dC_dp = speedofsound::theory::dC_dp(t, p, Xw, xc, dXw_dp);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto h = test_case.second.humidity_;
+    const auto p = test_case.second.pressure_;
+    const auto xc = test_case.second.co2_mole_fraction_;
+    const auto F = speedofsound::theory::F(p, t);
+    const auto Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
+    const auto Xw = speedofsound::theory::Xw(h, F, Psv, p);
+    const auto dXw_dp = speedofsound::theory::dXw_dp(h, F, Psv, p);
+    const auto dC_dp = speedofsound::theory::dC_dp(t, p, Xw, xc, dXw_dp);
     EXPECT_NEAR(test_case.first, dC_dp, -1.0 * test_case.first * kTolerance);
   }
 }
@@ -348,18 +336,17 @@ TEST_F(SpeedOfSoundTheoryTest, dC_dh) {
                 {1.5422750283964233, random_case},
                 {1.2536647176373856, std_case},
                 {2.3204819429829007, max_case}};
-  double t, h, p, xc, F, Psv, Xw, dC_dXw, dXw_dh, dC_dh;
-  for (auto test_case : test_cases) {
-    t = test_case.second.temperature_;
-    h = test_case.second.humidity_;
-    p = test_case.second.pressure_;
-    xc = test_case.second.co2_mole_fraction_;
-    F = speedofsound::theory::F(p, t);
-    Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
-    Xw = speedofsound::theory::Xw(h, F, Psv, p);
-    dC_dXw = speedofsound::theory::dC_dXw(t, p, Xw, xc);
-    dXw_dh = speedofsound::theory::dXw_dh(F, Psv, p);
-    dC_dh = speedofsound::theory::dC_dh(dC_dXw, dXw_dh);
+  for (const auto& test_case : test_cases) {
+    const auto t = test_case.second.temperature_;
+    const auto h = test_case.second.humidity_;
+    const auto p = test_case.second.pressure_;
+    const auto xc = test_case.second.co2_mole_fraction_;
+    const auto F = speedofsound::theory::F(p, t);
+    const auto Psv = speedofsound::theory::Psv(speedofsound::theory::T(t));
+    const auto Xw = speedofsound::theory::Xw(h, F, Psv, p);
+    const auto dC_dXw = speedofsound::theory::dC_dXw(t, p, Xw, xc);
+    const auto dXw_dh = speedofsound::theory::dXw_dh(F, Psv, p);
+    const auto dC_dh = speedofsound::theory::dC_dh(dC_dXw, dXw_dh);
     EXPECT_NEAR(test_case.first, dC_dh, test_case.first * kTolerance);
   }
 }
