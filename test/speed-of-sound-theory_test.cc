@@ -1,5 +1,4 @@
-// speed_of_sound_theory_test.cc
-#include "speed_of_sound_theory_test.h"
+#include "speed-of-sound-theory_test.h"
 
 SpeedOfSoundTheoryTest::SpeedOfSoundTheoryTest() {
   min_case.temperature_ = speedofsound::theory::kMinTemperature;
