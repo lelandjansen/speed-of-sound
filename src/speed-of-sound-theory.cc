@@ -1,6 +1,8 @@
 #include "speed-of-sound-theory.h"
 
-#include <cmath>
+// Using math.h instead of cmath because cmath is often not available on
+// embedded compilers
+#include <math.h>
 
 namespace speedofsound {
 

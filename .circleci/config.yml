@@ -2,30 +2,51 @@ version: 2
 jobs:
   check-code-style:
     docker:
-      - image: lelandjansen/speed-of-sound-toolchain:0.0.2
+      - image: lelandjansen/speed-of-sound-toolchain:1.0.0
     steps:
       - checkout
       - run:
           name: Check code style
           command: ./check-code-style
-  build-release:
+  build-release-clang:
     docker:
-      - image: lelandjansen/speed-of-sound-toolchain:0.0.2
+      - image: lelandjansen/speed-of-sound-toolchain:1.0.0
     steps:
       - checkout
-      - run: 
-          name: Git submodules
-          command: git submodule update --init --recursive
+      - run: git submodule update --init --recursive
       - run:
-          name: Build (release)
+          name: Build with clang (release)
           command: |
-            cmake \
-              -DCMAKE_BUILD_TYPE=RELEASE \
-              .
+            CC=clang-5.0 CXX=clang++-5.0 \
+              cmake . -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_TESTS=TRUE
             cmake --build . -- -j2
-  build-debug-and-test:
+  build-release-gcc:
     docker:
-      - image: lelandjansen/speed-of-sound-toolchain:0.0.2
+      - image: lelandjansen/speed-of-sound-toolchain:1.0.0
+    steps:
+      - checkout
+      - run: git submodule update --init --recursive
+      - run:
+          name: Build with gcc (release)
+          command: |
+            CC=gcc CXX=g++ \
+              cmake . -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_TESTS=TRUE
+            cmake --build . -- -j2
+  build-release-avr-gcc:
+    docker:
+      - image: lelandjansen/speed-of-sound-toolchain:1.0.0
+    steps:
+      - checkout
+      - run: git submodule update --init --recursive
+      - run:
+          name: Build with avr-gcc (release)
+          command: |
+            CC=avr-gcc CXX=avr-g++ \
+              cmake . -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_TESTS=FALSE
+            cmake --build . -- -j2
+  build-debug-test-coverage:
+    docker:
+      - image: lelandjansen/speed-of-sound-toolchain:1.0.0
     environment:
       COVERALLS_REPO_TOKEN: Ny1fDedTzf5EuoygukebX5x28beAqhHD9
     steps:
@@ -36,15 +57,13 @@ jobs:
       - run: 
           name: Build (debug)
           command: |
-            cmake \
-              -DCMAKE_BUILD_TYPE=DEBUG \
-              .
+            cmake . -DCMAKE_BUILD_TYPE=DEBUG -DBUILD_TESTS=TRUE
             cmake --build . -- -j2
       - run:
           name: Run unit tests
           command: ./unit_tests
       - run:
-          name: Coveralls
+          name: Test coverage with Coveralls
           when: on_success
           command: coveralls --include src
 workflows:
@@ -52,6 +71,7 @@ workflows:
   build_and_test:
     jobs:
       - check-code-style
-      - build-release
-      - build-debug-and-test
- 
+      - build-release-clang
+      - build-release-gcc
+      - build-release-avr-gcc
+      - build-debug-test-coverage

@@ -2,7 +2,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BUILD_DIR="$DIR/../build"
 mkdir -p "$BUILD_DIR/build"
-cmake -B$BUILD_DIR -H$DIR/..
-make -j2 -C $BUILD_DIR
+cmake -B$BUILD_DIR -H$DIR/.. -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_TESTS=TRUE
+cmake --build $BUILD_DIR -- -j2
 $BUILD_DIR/unit_tests
-

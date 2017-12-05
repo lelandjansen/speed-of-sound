@@ -11,7 +11,9 @@ RUN apt-get install -y \
   ca-certificates
 
 # Our general requirements
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
+  wget \
+  bzip2 \
   build-essential \
   software-properties-common
 
@@ -36,8 +38,12 @@ RUN cd cmake-3.9.4 && \
 RUN rm cmake-3.9.4.tar.gz && \
   rm -rf cmake-3.9.4
 
+# GNU AVR Embedded Toolchain
+RUN apt-get install -y \
+  gcc-avr \
+  avr-libc
+
 # Coveralls
 RUN apt-get install -y python-pip
 RUN pip install --upgrade pip
 RUN pip install --prefix /usr/local cpp-coveralls
-
