@@ -2,7 +2,9 @@
 
 namespace speedofsound {
 
-SpeedOfSound::SpeedOfSound() { SpeedOfSound::Compute(init_environment_); }
+SpeedOfSound::SpeedOfSound() {
+  init_speed_of_sound_ = SpeedOfSound::Compute(init_environment_);
+}
 
 SpeedOfSound::SpeedOfSound(const Environment& ambient_conitions)
     : init_environment_(ambient_conitions),

@@ -51,9 +51,7 @@ jobs:
       COVERALLS_REPO_TOKEN: Ny1fDedTzf5EuoygukebX5x28beAqhHD9
     steps:
       - checkout
-      - run: 
-          name: Git submodules
-          command: git submodule update --init --recursive
+      - run: git submodule update --init --recursive
       - run: 
           name: Build (debug)
           command: |
